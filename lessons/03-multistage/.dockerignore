@@ -1,0 +1,4 @@
+# ビルドコンテキストに含めないファイル
+README.md
+Dockerfile*
+.git
