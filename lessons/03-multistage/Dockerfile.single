@@ -1,0 +1,9 @@
+# 比較用: シングルステージ（ビルドツールごと最終イメージに入ってしまう）
+FROM golang:1.23
+
+WORKDIR /src
+COPY . .
+RUN go build -o /app .
+
+EXPOSE 8080
+CMD ["/app"]

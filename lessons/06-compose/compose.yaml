@@ -1,0 +1,23 @@
+services:
+  web:
+    build: ./web            # ./web/Dockerfile からビルド
+    ports:
+      - "5000:5000"
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      redis:
+        condition: service_healthy   # redis が healthy になってから起動
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data    # カウンタの値を永続化
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+volumes:
+  redis-data:
